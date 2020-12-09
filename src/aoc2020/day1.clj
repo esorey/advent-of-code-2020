@@ -7,26 +7,25 @@
   (-> "src/aoc2020/input1.txt"
       slurp
       (str/split #"\n")
-      (as-> x (map #(Integer/parseInt %) x))
+      (as-> lines (map #(Integer/parseInt %) lines))
       set))
 
+(defn complement [n] (- 2020 n))
+
 (defn part1 [] 
-  (as-> input x
-    (filter #(contains? x (- 2020 %)) x)
-    (first x)
-    (* x (- 2020 x))
-    (println "Part 1: " x)))
+  (let [comps (set (map complement input))
+        match (some input comps)]
+    (println "Part 1: " (* match (complement match)))))
 
 (defn part2 []
-  (let [sums-to-pairs (as-> input x
-                        (combo/combinations x 2)
-                        (zipmap (map #(reduce + %) x) x))]
-    (as-> sums-to-pairs x
-      (filter #(contains? x (- 2020 %)) input)
-      (first x)
-      (conj (sums-to-pairs (- 2020 x)) x)
-      (reduce * x)
-      (println "Part 2: " x))))
+  (let [comps (set (map complement input))
+        pairs (combo/combinations input 2)
+        pair-sums (map #(reduce + %) pairs)
+        sums-to-pairs (zipmap pair-sums pairs)
+        sum-match (some comps pair-sums)
+        pair-match (sums-to-pairs sum-match)
+        triplet (conj pair-match (complement sum-match))]
+    (println "Part 2: " (reduce *  triplet))))
 
 (defn -main [& args]
   (do
