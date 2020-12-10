@@ -25,7 +25,7 @@
         sum-match (some comps pair-sums)
         pair-match (sums-to-pairs sum-match)
         triplet (conj pair-match (complement sum-match))]
-    (println "Part 2: " (reduce *  triplet))))
+    (println "Part 2: " (reduce * triplet))))
 
 (defn -main [& args]
   (do
