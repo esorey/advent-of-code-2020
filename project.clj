@@ -11,4 +11,5 @@
              :day3 {:main aoc2020.day3}
              :day4 {:main aoc2020.day4}
              :day5 {:main aoc2020.day5}
+             :day6 {:main aoc2020.day6}
              :uberjar {:aot :all}})
