@@ -28,8 +28,7 @@
             (count-trees (next-coord-fn 1 3))
             (count-trees (next-coord-fn 1 5))
             (count-trees (next-coord-fn 1 7))
-            (count-trees (next-coord-fn 2 1))
-            ]))
+            (count-trees (next-coord-fn 2 1))]))
 
 (defn -main [& args]
   (do (println "Part 1: " (part1))

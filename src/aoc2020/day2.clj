@@ -9,10 +9,10 @@
 
 (defn parse-line [line]
   (let [[limits char string] (str/split line #" ")
-        [min max] (map #(Integer/parseInt %) (str/split limits #"-"))]
-    {:min min
-     :max max
-     :char (first char)
+        [min max]            (map #(Integer/parseInt %) (str/split limits #"-"))]
+    {:min    min
+     :max    max
+     :char   (first char)
      :string string}))
 
 (defn valid-password? [{:keys [min max char string]}]
@@ -21,8 +21,7 @@
          (<= char-count max))))
 
 (defn valid-password2? [{:keys [min max char string]}]
-  (let [chars (vals (select-keys (vec string) [(- min 1) (- max 1)]))
-        chars [(get string (- min 1)) (get string (- max 1))]
+  (let [chars       [(get string (- min 1)) (get string (- max 1))]
         match-count (count (filter #(= char %) chars))]
     (= 1 match-count)))
 
@@ -30,15 +29,14 @@
   (->> input
        (map parse-line)
        (filter valid-password?)
-       count
-       (println "Part 1: ")))
+       count))
 
 (defn part2 [] 
   (->> input
        (map parse-line)
        (filter valid-password2?)
-       count
-       (println "Part 2: ")))
+       count))
 
 (defn -main [& args]
-  (do (part1) (part2)))
+  (do (println "Part 1: " (part1))
+      (println "Part 2: " (part2))))

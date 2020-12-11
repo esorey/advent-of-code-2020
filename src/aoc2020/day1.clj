@@ -15,19 +15,18 @@
 (defn part1 [] 
   (let [comps (set (map complement input))
         match (some input comps)]
-    (println "Part 1: " (* match (complement match)))))
+    (* match (complement match))))
 
 (defn part2 []
-  (let [comps (set (map complement input))
-        pairs (combo/combinations input 2)
-        pair-sums (map #(reduce + %) pairs)
+  (let [comps         (set (map complement input))
+        pairs         (combo/combinations input 2)
+        pair-sums     (map #(reduce + %) pairs)
         sums-to-pairs (zipmap pair-sums pairs)
-        sum-match (some comps pair-sums)
-        pair-match (sums-to-pairs sum-match)
-        triplet (conj pair-match (complement sum-match))]
-    (println "Part 2: " (reduce * triplet))))
+        sum-match     (some comps pair-sums)
+        pair-match    (sums-to-pairs sum-match)
+        triplet       (conj pair-match (complement sum-match))]
+    (apply * triplet)))
 
 (defn -main [& args]
-  (do
-    (part1)
-    (part2)))
+  (do (println "Part 1: " (part1))
+      (println "Part 2: " (part2))))
